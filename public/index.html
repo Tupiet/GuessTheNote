@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.40/Tone.js" integrity="sha512-59wz3/QJMP1QgULLB5O08pqS8wIdlvK1iJaRZm6ESyRrUuxjdRrnKepXKbSTbjX3ZZZ19AbiCJZEaZN7Zm8OjQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<body>
+    <div id="start">
+        <button id="start-room">Start room</button>
+        <button id="join-room">Join room</button>
+        <input type="text" name="room-id" id="room-id">
+    </div>
+    
+    <div id="game">
+        <button id="c">DO</button>
+        <button id="c#">DO#</button>
+        <button id="d">RE</button>
+        <button id="d#">RE#</button>
+        <button id="e">MI</button>
+        <button id="f">FA</button>
+        <button id="f#">FA#</button>
+        <button id="g">SOL</button>
+        <button id="g#">SOL#</button>
+        <button id="a">LA</button>
+        <button id="a#">LA#</button>
+        <button id="b">SI</button>
+    
+        <button id="plus">+</button>
+        <button id="minus">-</button>
+    
+        <p id="octava">4</p>
+
+        <p id="points">0</p>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./unmute.js"></script>
+    <script>
+        let socket = io()
+
+        
+        let startRoom = document.getElementById('start-room')
+        let joinRoom = document.getElementById('join-room')
+        let roomIdElement = document.getElementById('room-id')
+        
+        let c = document.getElementById('c')
+        let cs = document.getElementById('c#')
+        let d = document.getElementById('d')
+        let ds = document.getElementById('d#')
+        let e = document.getElementById('e')
+        let f = document.getElementById('f')
+        let fs= document.getElementById('f#')
+        let g = document.getElementById('g')
+        let gs = document.getElementById('g#')
+        let a = document.getElementById('a')
+        let as = document.getElementById('a#')
+        let b = document.getElementById('b')
+
+        let plus = document.getElementById('plus')
+        let minus = document.getElementById('minus')
+
+        let octavaElement = document.getElementById('octava')
+        let pointsElement = document.getElementById('points')
+
+        let octava = 4
+        let points = 0
+
+
+        startRoom.addEventListener('click', (e) => {
+            let roomId = roomIdElement.value
+            console.log(roomId)
+            socket.emit('create room', roomId)
+
+            Tone.start()
+        })
+
+        joinRoom.addEventListener('click', (e) => {
+            let roomId = roomIdElement.value
+            console.log(roomId)
+            socket.emit('join room', roomId)
+
+            Tone.start()
+        })
+        
+    
+        c.addEventListener('click', (e) => {
+            socket.emit('note', 'C' + octava) 
+        })
+        cs.addEventListener('click', (e) => {
+            socket.emit('note', 'C#' + octava) 
+        })
+        d.addEventListener('click', (e) => {
+            socket.emit('note', 'D' + octava) 
+        })
+        ds.addEventListener('click', (e) => {
+            socket.emit('note', 'D#' + octava) 
+        })
+        e.addEventListener('click', (e) => {
+            socket.emit('note', 'E' + octava) 
+        })
+        f.addEventListener('click', (e) => {
+            socket.emit('note', 'F' + octava) 
+        })
+        fs.addEventListener('click', (e) => {
+            socket.emit('note', 'F#' + octava) 
+        })
+        g.addEventListener('click', (e) => {
+            socket.emit('note', 'G' + octava) 
+        })
+        gs.addEventListener('click', (e) => {
+            socket.emit('note', 'G#' + octava) 
+        })
+        a.addEventListener('click', (e) => {
+            socket.emit('note', 'A' + octava) 
+        })
+        as.addEventListener('click', (e) => {
+            socket.emit('note', 'A#' + octava) 
+        })
+        b.addEventListener('click', (e) => {
+            socket.emit('note', 'B' + octava) 
+        })
+
+        plus.addEventListener('click', (e) => {
+            if (octava < 5) {
+                octava++
+                octavaElement.innerHTML = octava
+            }
+        })
+        minus.addEventListener('click', (e) => {
+            if (octava > 1) {
+                octava--
+                octavaElement.innerHTML = octava
+            }
+        })
+
+        socket.on('note', (note) => {
+            //create a synth and connect it to the main output (your speakers)
+            const synth = new Tone.Synth().toDestination();
+
+            //play a middle 'C' for the duration of an 8th note
+            synth.triggerAttackRelease(note, "8n");
+        })
+
+        socket.on('answer', (result) => {
+            if (result) {
+                points++
+            } else {
+                points--
+            }
+            pointsElement.innerHTML = points
+        })
+    </script>
+</body>
+</html>
