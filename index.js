@@ -35,13 +35,13 @@ io.on('connection', (socket) => {
                     // Si és l'owner
                     if (roomOwner) {
                         // Canvia l'owner al següent
-                        room.owner = room.users[1]
-                        console.log('The owner is: ' + room.users[1].id)
+                        room.owner = room.users[1].socket
+                        console.log('The owner is: ' + room.users[1].socket.id)
                     }
                     
                     // Elimina l'usuari de l'array users
                     console.log('Intento modificar l\'array d\'usuaris')
-                    room.users = room.users.filter(r => r.id != socket.id)
+                    room.users = room.users.filter(r => r.socket.id != socket.id)
     
                     // Actualitza la sala
                     rooms[index] = room
@@ -96,7 +96,11 @@ io.on('connection', (socket) => {
                 'id': roomId,
                 'current_note': null,
                 'owner': socket,
-                'users': [socket]
+                'users': [ 
+                    {
+                        'socket': socket
+                    }
+                ]
             }
             // Afegeix-la a les sales i uneix a l'usuari, que serà l'owner
             rooms.push(room)
@@ -124,7 +128,9 @@ io.on('connection', (socket) => {
             // Agafem la sala desitjada de rooms
             let room = rooms.find(room => room.id == roomId)
             // Afegim el socket a l'array users
-            room.users.push(socket)
+            room.users.push({
+                'socket': socket
+            })
         } else {
             console.log('Room doesn\'t exist')
         }
@@ -142,7 +148,7 @@ function getRoomIndex(id, rooms) {
         // Per cada usuari a la sala
         for (let j = 0; j < rooms[i].users.length; j++) {
             // Si la seva id és igual a la de l'usuari, és perquè hem trobat la sala on està (o estava)
-            if (rooms[i].users[j].id == id) {
+            if (rooms[i].users[j].socket.id == id) {
                 return i // Retorna l'índex
             }
         }
