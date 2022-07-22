@@ -34,9 +34,13 @@ io.on('connection', (socket) => {
                 if (room.users.length > 1) {
                     // Si és l'owner
                     if (roomOwner) {
+                        let newOwner = room.users[1]
                         // Canvia l'owner al següent
-                        room.owner = room.users[1].socket
-                        console.log('The owner is: ' + room.users[1].socket.id)
+                        room.owner = newOwner.socket
+
+                        newOwner.socket.emit('you are the owner')
+
+                        console.log('The owner is: ' + newOwner.socket.id)
                     }
                     
                     // Elimina l'usuari de l'array users
@@ -73,19 +77,32 @@ io.on('connection', (socket) => {
                 room.current_note = note
                 // Envia a tots la nota
                 io.to(room.id).emit('note', note)
+                room.users.forEach(user => {
+                    user.has_pressed_note = false
+                });
             }
             // Si no ho és (per tant, és un usuari normal)
             else {
-                // Envia la resposta (true o false) al client que ha enviat la nota
-                socket.emit('answer', note == room.current_note)
-                // Toca la nota
-                socket.emit('note', note)
+                // Agafem l'usuari que ha espitxat el botó
+                let user = room.users.find(u => u.socket.id == socket.id)
+
+                // Si l'usuari encara no havia premut cap nota
+                if (!user.has_pressed_note) {
+                    // Envia la resposta (true o false) al client que ha enviat la nota
+                    socket.emit('answer', note == room.current_note)
+                    // Toca la nota
+                    socket.emit('note', note)
+
+                    // L'usuari ha seleccionat una nota
+                    user.has_pressed_note = true
+                }
+                
             }
         }
     })
 
     // Quan rebis la petició de crear una sala
-    socket.on('create room', (roomId) => {
+    socket.on('create room', (roomId, username) => {
         // Assigna el prefix 'room - ' a la sala
         roomId = 'room - ' + roomId
 
@@ -98,7 +115,10 @@ io.on('connection', (socket) => {
                 'owner': socket,
                 'users': [ 
                     {
-                        'socket': socket
+                        'id': socket.id,
+                        'username': username,
+                        'socket': socket,
+                        'has_pressed_note': false
                     }
                 ]
             }
@@ -106,15 +126,22 @@ io.on('connection', (socket) => {
             rooms.push(room)
             socket.join(roomId)
 
+            // Digues que s'ha unit l'usuari a la sala i que és l'owner
+            socket.emit('joined', [{
+                'username': username,
+                'owner': true
+            }])
+            socket.emit('you are the owner')
+
             console.log('Room created! The id is: ' + roomId)
-            console.log('The user ' + socket.id + ' is the owner of the room.')
+            console.log('The user ' + socket.id + 'with the username ' + username + ' is the owner of the room.')
         } else {
             console.log('The room already exists.')
         }
     })
 
     // Quan rebis la petició d'unir-te a una sala
-    socket.on('join room', (roomId) => {
+    socket.on('join room', (roomId, username) => {
         // Assigna el prefix 'room - ' a la sala
         roomId = 'room - ' + roomId
 
@@ -123,14 +150,29 @@ io.on('connection', (socket) => {
             // Uneix l'usuari a la sala
             socket.join(roomId)
             
-            console.log('The user with id ' + socket.id + ' has been joined to the room: ' + roomId)
+            console.log('The user with id ' + socket.id + 'with the username ' + username + ' has been joined to the room: ' + roomId)
             
             // Agafem la sala desitjada de rooms
             let room = rooms.find(room => room.id == roomId)
             // Afegim el socket a l'array users
             room.users.push({
-                'socket': socket
+                'id': socket.id,
+                'username': username,
+                'socket': socket,
+                'has_pressed_note': false
             })
+
+            // Digues que s'ha unit l'usuari a la sala
+            let usersInRoom = []
+            room.users.forEach(user => {
+                usersInRoom.push({
+                    'username': user.username,
+                    'owner': user.id == room.owner.id
+                })
+            })
+
+            socket.emit('joined', usersInRoom)
+            io.emit('user joined', username)
         } else {
             console.log('Room doesn\'t exist')
         }
