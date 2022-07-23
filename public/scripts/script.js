@@ -29,11 +29,19 @@ let pointsElement = document.getElementById('points')
 
 let owner = document.getElementById('owner')
 
+let usersList = document.getElementById('users')
+
 let octava = 4
 let points = 0
 
 let users = []
 
+let el = (tag, data) => {
+    let e = document.createElement(tag)
+    e.innerHTML = data.text
+    for (let a in data.attrs) e.setAttribute(a, data.attrs[a])
+    return e
+}
 
 startRoom.addEventListener('click', (e) => {
     let roomId = roomIdElement.value
@@ -129,7 +137,19 @@ socket.on('joined', (usersInRoom) => {
     start.style.display = 'none'
     game.style.display = 'block'
 
+    usersInRoom.forEach(user => {
+        users.push(user)
+
+        usersList.appendChild(el('li', {
+            'text': user.username,
+            'attrs': {
+                'id': 'user-' + user.username
+            }
+        }))
+    })
+
     console.log(usersInRoom)
+    console.log(users)
 })
 
 socket.on('you are the owner', () => {
@@ -138,5 +158,13 @@ socket.on('you are the owner', () => {
 
 socket.on('user joined', (username) => {
     users.push[username]
+
+    usersList.appendChild(el('li', {
+        'text': username,
+        'attrs': {
+            'id': 'user-' + username
+        }
+    }))
+
     console.log('The user ' + username + ' has joined.')
 })

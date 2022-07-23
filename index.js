@@ -172,7 +172,7 @@ io.on('connection', (socket) => {
             })
 
             socket.emit('joined', usersInRoom)
-            io.emit('user joined', username)
+            socket.broadcast.emit('user joined', username)
         } else {
             console.log('Room doesn\'t exist')
         }
