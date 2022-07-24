@@ -168,3 +168,7 @@ socket.on('user joined', (username) => {
 
     console.log('The user ' + username + ' has joined.')
 })
+
+socket.on('user disconnected', (username) => {
+    document.getElementById('user-' + username).remove()
+})

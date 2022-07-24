@@ -42,6 +42,10 @@ io.on('connection', (socket) => {
 
                         console.log('The owner is: ' + newOwner.socket.id)
                     }
+
+                    let userDisconnecting = room.users.find(user => user.id == socket.id)
+
+                    io.to(room.id).emit('user disconnected', userDisconnecting.username)
                     
                     // Elimina l'usuari de l'array users
                     console.log('Intento modificar l\'array d\'usuaris')
@@ -49,6 +53,8 @@ io.on('connection', (socket) => {
     
                     // Actualitza la sala
                     rooms[index] = room
+
+
                 } 
                 // Si està sol
                 else {
@@ -172,7 +178,7 @@ io.on('connection', (socket) => {
             })
 
             socket.emit('joined', usersInRoom)
-            socket.broadcast.emit('user joined', username)
+            socket.broadcast.to(room.id).emit('user joined', username)
         } else {
             console.log('Room doesn\'t exist')
         }
