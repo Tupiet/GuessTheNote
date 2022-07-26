@@ -53,8 +53,6 @@ io.on('connection', (socket) => {
     
                     // Actualitza la sala
                     rooms[index] = room
-
-
                 } 
                 // Si està sol
                 else {
