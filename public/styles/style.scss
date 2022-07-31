@@ -1,5 +1,40 @@
+@use 'piano';
 
+@use "../extra/fontawesome/scss/fontawesome.scss";
+@use "../extra/fontawesome/scss/solid.scss"; 
+@use "../extra/fontawesome/scss/brands.scss"; 
+
+@font-face {
+    font-family: 'Pacifico';
+    src: url('webfonts/Pacifico-Regular.ttf')  format('truetype');
+}
 
 #owner, #game {
     display: none;
+}
+
+#plus, #minus {
+    padding: 0.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+    
+    border: 0;
+    border-radius: 20px;
+    outline: none;
+
+    background: rgb(121, 121, 121);
+    color: #fff;
+
+    font-size: 1.2em;
+}
+
+#octava {
+    color: #fff;
+
+    font-family: 'Pacifico', 'Lato', sans-serif;
+    font-size: 1.7em;
+}
+
+#users {
+    list-style: none;
 }
