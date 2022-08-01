@@ -6,7 +6,7 @@
 
 .piano-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
 }
 
@@ -10204,6 +10204,15 @@ readers do not read off random characters that represent icons */
   font-family: "Pacifico";
   src: url("webfonts/Pacifico-Regular.ttf") format("truetype");
 }
+@font-face {
+  font-family: "Itim";
+  src: url("webfonts/Itim-Regular.ttf") format("truetype");
+}
+body {
+  background: #4a4a4a;
+  font-family: "Itim", sans-serif;
+}
+
 #owner, #game {
   display: none;
 }
@@ -10226,6 +10235,28 @@ readers do not read off random characters that represent icons */
   font-size: 1.7em;
 }
 
+.space {
+  width: 100vh;
+  min-height: 30vh;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 3em;
+}
+
 #users {
+  margin: 0;
+  padding: 1em;
+  width: 10em;
+  height: 20em;
   list-style: none;
+  background: #333;
+  color: #fff;
+  border-radius: 10px;
+}
+#users li {
+  background: #555;
+  color: #fff;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
 }

@@ -1,3 +1,4 @@
+// TODO: User points must be seen by everyone
 const express = require('express')
 const app = express()
 const http = require('http')
@@ -60,7 +61,6 @@ io.on('connection', (socket) => {
                     rooms.splice(index, 1)
                 }
             }
-            
         }
     })
     
@@ -92,13 +92,17 @@ io.on('connection', (socket) => {
 
                 // Si l'usuari encara no havia premut cap nota
                 if (!user.has_pressed_note) {
+                    // Guarda la puntuació de l'usuari
+                    (note == room.current_note) ? user.points++ : user.points--
+
+                    // L'usuari ha seleccionat una nota
+                    user.has_pressed_note = true
+
                     // Envia la resposta (true o false) al client que ha enviat la nota
                     socket.emit('answer', note == room.current_note)
                     // Toca la nota
                     socket.emit('note', note)
 
-                    // L'usuari ha seleccionat una nota
-                    user.has_pressed_note = true
                 }
                 
             }
@@ -121,6 +125,7 @@ io.on('connection', (socket) => {
                     {
                         'id': socket.id,
                         'username': username,
+                        'points': 0,
                         'socket': socket,
                         'has_pressed_note': false
                     }

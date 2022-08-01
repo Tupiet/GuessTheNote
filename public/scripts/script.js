@@ -31,8 +31,9 @@ let owner = document.getElementById('owner')
 
 let usersList = document.getElementById('users')
 
-let octava = 4
-let points = 0
+let octava = 4, points = 0
+
+let username
 
 let users = []
 
@@ -45,7 +46,7 @@ let el = (tag, data) => {
 
 startRoom.addEventListener('click', (e) => {
     let roomId = roomIdElement.value
-    let username = usernameElement.value
+    username = usernameElement.value
     console.log(username)
     
     console.log(roomId)
@@ -56,7 +57,7 @@ startRoom.addEventListener('click', (e) => {
 
 joinRoom.addEventListener('click', (e) => {
     let roomId = roomIdElement.value
-    let username = usernameElement.value
+    username = usernameElement.value
     console.log(username)
 
     console.log(roomId)
@@ -130,7 +131,7 @@ socket.on('answer', (result) => {
     } else {
         points--
     }
-    pointsElement.innerHTML = points
+    document.getElementById('points-' + username).innerHTML = points
 })
 
 socket.on('joined', (usersInRoom) => {
@@ -141,9 +142,10 @@ socket.on('joined', (usersInRoom) => {
         users.push(user)
 
         usersList.appendChild(el('li', {
-            'text': user.username,
+            'text': `<span>${user.username}</span> <span id="points-${user.username}">0</span>`,
             'attrs': {
-                'id': 'user-' + user.username
+                'id': 'user-' + user.username,
+                'class': 'you'
             }
         }))
     })
@@ -154,13 +156,14 @@ socket.on('joined', (usersInRoom) => {
 
 socket.on('you are the owner', () => {
     owner.style.display = 'block'
+    //document.getElementById('')
 })
 
 socket.on('user joined', (username) => {
     users.push[username]
 
     usersList.appendChild(el('li', {
-        'text': username,
+        'text': `<span>${username}</span> <span id="points-${username}">0</span>`,
         'attrs': {
             'id': 'user-' + username
         }
