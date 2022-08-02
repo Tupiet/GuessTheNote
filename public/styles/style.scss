@@ -59,7 +59,7 @@ body {
     margin: 0;
     padding: 1em;
 
-    width: 10em;
+    width: 15em;
     height: 20em;
 
     list-style: none;
@@ -77,5 +77,20 @@ body {
         padding: 0.5em;
 
         border-radius: 5px;
+
+        display: flex;
+        justify-content: space-between;
+
+        &.you {
+            background: rgb(34, 34, 34);
+        }
+        
+        &.owner {
+            border: 1px solid gold;
+        }
     }
+}
+
+.fa-crown {
+    color: gold;
 }

@@ -10246,7 +10246,7 @@ body {
 #users {
   margin: 0;
   padding: 1em;
-  width: 10em;
+  width: 15em;
   height: 20em;
   list-style: none;
   background: #333;
@@ -10259,4 +10259,16 @@ body {
   margin-bottom: 0.5em;
   padding: 0.5em;
   border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+}
+#users li.you {
+  background: #222222;
+}
+#users li.owner {
+  border: 1px solid gold;
+}
+
+.fa-crown {
+  color: gold;
 }

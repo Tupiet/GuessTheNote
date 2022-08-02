@@ -125,13 +125,13 @@ socket.on('note', (note) => {
     synth.triggerAttackRelease(note, "8n");
 })
 
-socket.on('answer', (result) => {
-    if (result) {
-        points++
-    } else {
-        points--
+socket.on('answer', (socketUsername, result, points) => {
+    if (socketUsername == username) {
+        console.log(result)
     }
-    document.getElementById('points-' + username).innerHTML = points
+    document.getElementById('points-' + socketUsername).innerHTML = points
+    console.log(document.getElementById('points-' + socketUsername))
+    console.log(points)
 })
 
 socket.on('joined', (usersInRoom) => {
@@ -142,30 +142,47 @@ socket.on('joined', (usersInRoom) => {
         users.push(user)
 
         usersList.appendChild(el('li', {
-            'text': `<span>${user.username}</span> <span id="points-${user.username}">0</span>`,
+            'text': `
+                <span>
+                    ${user.owner ? '<i class="fa-solid fa-crown"></i> ' : ''}
+                    ${user.username}</span> 
+                <span id="points-${user.username}">${user.points}</span>`,
             'attrs': {
                 'id': 'user-' + user.username,
-                'class': 'you'
+                'class': 'user ' + ((user.owner) ? 'owner' : '')
             }
         }))
+
+        console.log((user.owner ? 'owner' : '') + ' user ')
     })
 
-    console.log(usersInRoom)
-    console.log(users)
+    document.getElementById('user-' + username).classList.add('you')
+
+    //console.log(usersInRoom)
+    //console.log(users)
 })
 
-socket.on('you are the owner', () => {
-    owner.style.display = 'block'
-    //document.getElementById('')
+socket.on('new owner', (ownerUsername, show) => {
+    if (ownerUsername == username) {
+        owner.style.display = 'block'
+    }
+    // Si show és true vol dir que s'ha creat la sala ara mateix, per tant, NO cal que torni a posar la corona
+    if (show) {
+        document.getElementById('user-' + ownerUsername).children[0].innerHTML = '<i class="fa-solid fa-crown"></i> ' + document.getElementById('user-' + ownerUsername).children[0].innerHTML
+        document.getElementById('user-' + ownerUsername).classList.add('owner')
+    }
 })
 
 socket.on('user joined', (username) => {
     users.push[username]
 
     usersList.appendChild(el('li', {
-        'text': `<span>${username}</span> <span id="points-${username}">0</span>`,
+        'text': `
+            <span>${username}</span> 
+            <span id="points-${username}">0</span>`,
         'attrs': {
-            'id': 'user-' + username
+            'id': 'user-' + username,
+            'class': 'user'
         }
     }))
 

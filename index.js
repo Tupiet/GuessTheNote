@@ -1,4 +1,4 @@
-// TODO: User points must be seen by everyone
+// TODO: Make sure there's not usernames repeated
 const express = require('express')
 const app = express()
 const http = require('http')
@@ -39,7 +39,7 @@ io.on('connection', (socket) => {
                         // Canvia l'owner al següent
                         room.owner = newOwner.socket
 
-                        newOwner.socket.emit('you are the owner')
+                        io.to(room.id).emit('new owner', newOwner.username, true)
 
                         console.log('The owner is: ' + newOwner.socket.id)
                     }
@@ -94,12 +94,14 @@ io.on('connection', (socket) => {
                 if (!user.has_pressed_note) {
                     // Guarda la puntuació de l'usuari
                     (note == room.current_note) ? user.points++ : user.points--
+                    console.log(user.points)
 
                     // L'usuari ha seleccionat una nota
                     user.has_pressed_note = true
 
                     // Envia la resposta (true o false) al client que ha enviat la nota
-                    socket.emit('answer', note == room.current_note)
+                    io.to(room.id).emit('answer', user.username, note == room.current_note, user.points)
+
                     // Toca la nota
                     socket.emit('note', note)
 
@@ -138,9 +140,11 @@ io.on('connection', (socket) => {
             // Digues que s'ha unit l'usuari a la sala i que és l'owner
             socket.emit('joined', [{
                 'username': username,
+                'points': 0,
                 'owner': true
             }])
-            socket.emit('you are the owner')
+
+            io.to(room.id).emit('new owner', username, false)
 
             console.log('Room created! The id is: ' + roomId)
             console.log('The user ' + socket.id + 'with the username ' + username + ' is the owner of the room.')
@@ -167,6 +171,7 @@ io.on('connection', (socket) => {
             room.users.push({
                 'id': socket.id,
                 'username': username,
+                'points': 0,
                 'socket': socket,
                 'has_pressed_note': false
             })
@@ -176,7 +181,8 @@ io.on('connection', (socket) => {
             room.users.forEach(user => {
                 usersInRoom.push({
                     'username': user.username,
-                    'owner': user.id == room.owner.id
+                    'points': user.points,
+                    'owner': room.owner.id == user.id
                 })
             })
 
