@@ -189,6 +189,10 @@ socket.on('user joined', (username) => {
     console.log('The user ' + username + ' has joined.')
 })
 
+socket.on('username already in use', () => {
+    alert('This username is already in use!')
+})
+
 socket.on('user disconnected', (username) => {
     document.getElementById('user-' + username).remove()
 })

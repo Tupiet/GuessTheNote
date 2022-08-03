@@ -1,4 +1,3 @@
-// TODO: Make sure there's not usernames repeated
 const express = require('express')
 const app = express()
 const http = require('http')
@@ -167,27 +166,34 @@ io.on('connection', (socket) => {
             
             // Agafem la sala desitjada de rooms
             let room = rooms.find(room => room.id == roomId)
-            // Afegim el socket a l'array users
-            room.users.push({
-                'id': socket.id,
-                'username': username,
-                'points': 0,
-                'socket': socket,
-                'has_pressed_note': false
-            })
 
-            // Digues que s'ha unit l'usuari a la sala
-            let usersInRoom = []
-            room.users.forEach(user => {
-                usersInRoom.push({
-                    'username': user.username,
-                    'points': user.points,
-                    'owner': room.owner.id == user.id
+            // Si no hi ha cap usuari amb el mateix nom d'usuari...
+            if (!room.users.some(user => user.username == username)) {
+                // Afegim el socket a l'array users
+                room.users.push({
+                    'id': socket.id,
+                    'username': username,
+                    'points': 0,
+                    'socket': socket,
+                    'has_pressed_note': false
                 })
-            })
-
-            socket.emit('joined', usersInRoom)
-            socket.broadcast.to(room.id).emit('user joined', username)
+    
+                // Digues que s'ha unit l'usuari a la sala
+                let usersInRoom = []
+                room.users.forEach(user => {
+                    usersInRoom.push({
+                        'username': user.username,
+                        'points': user.points,
+                        'owner': room.owner.id == user.id
+                    })
+                })
+    
+                socket.emit('joined', usersInRoom)
+                socket.broadcast.to(room.id).emit('user joined', username)
+            }
+            else {
+                socket.emit('username already in use')
+            }
         } else {
             console.log('Room doesn\'t exist')
         }
