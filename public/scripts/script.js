@@ -37,6 +37,17 @@ let username
 
 let users = []
 
+const sampler = new Tone.Sampler({
+	urls: {
+		"C4": "C4.mp3",
+		"D#4": "Ds4.mp3",
+		"F#4": "Fs4.mp3",
+		"A4": "A4.mp3",
+	},
+	release: 1,
+	baseUrl: "../extra/piano/",
+}).toDestination();
+
 let el = (tag, data) => {
     let e = document.createElement(tag)
     e.innerHTML = data.text
@@ -67,40 +78,40 @@ joinRoom.addEventListener('click', (e) => {
 })
 
 
-c.addEventListener('click', (e) => {
+c.addEventListener('mousedown', (e) => {
     socket.emit('note', 'C' + octava) 
 })
-cs.addEventListener('click', (e) => {
+cs.addEventListener('mousedown', (e) => {
     socket.emit('note', 'C#' + octava) 
 })
-d.addEventListener('click', (e) => {
+d.addEventListener('mousedown', (e) => {
     socket.emit('note', 'D' + octava) 
 })
-ds.addEventListener('click', (e) => {
+ds.addEventListener('mousedown', (e) => {
     socket.emit('note', 'D#' + octava) 
 })
-e.addEventListener('click', (e) => {
+e.addEventListener('mousedown', (e) => {
     socket.emit('note', 'E' + octava) 
 })
-f.addEventListener('click', (e) => {
+f.addEventListener('mousedown', (e) => {
     socket.emit('note', 'F' + octava) 
 })
-fs.addEventListener('click', (e) => {
+fs.addEventListener('mousedown', (e) => {
     socket.emit('note', 'F#' + octava) 
 })
-g.addEventListener('click', (e) => {
+g.addEventListener('mousedown', (e) => {
     socket.emit('note', 'G' + octava) 
 })
-gs.addEventListener('click', (e) => {
+gs.addEventListener('mousedown', (e) => {
     socket.emit('note', 'G#' + octava) 
 })
-a.addEventListener('click', (e) => {
+a.addEventListener('mousedown', (e) => {
     socket.emit('note', 'A' + octava) 
 })
-as.addEventListener('click', (e) => {
+as.addEventListener('mousedown', (e) => {
     socket.emit('note', 'A#' + octava) 
 })
-b.addEventListener('click', (e) => {
+b.addEventListener('mousedown', (e) => {
     socket.emit('note', 'B' + octava) 
 })
 
@@ -122,7 +133,7 @@ socket.on('note', (note) => {
     const synth = new Tone.Synth().toDestination();
 
     //play a middle 'C' for the duration of an 8th note
-    synth.triggerAttackRelease(note, "8n");
+    sampler.triggerAttackRelease(note, "8n");
 })
 
 socket.on('answer', (socketUsername, result, points) => {
