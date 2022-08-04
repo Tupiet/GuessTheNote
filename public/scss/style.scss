@@ -28,7 +28,130 @@ body {
 #start-container {
     width: 60vw;
     height: 60vh;
-    border: 1px solid #fff;
+    //border: 1px solid #fff;
+    background: rgb(128, 128, 128);
+    border-radius: 15px;
+
+    @include flex(flex-start, center);
+    flex-direction: column;
+
+    overflow: auto;
+
+    > div {
+        margin: 0.5em;
+    }
+}
+
+#username-container {
+    @include flex;
+    flex-direction: column;
+
+    label {
+        font-size: 1.5em;
+        margin: 0.75em;
+    }
+
+    input {
+        background: #333;
+        color: #fff;
+
+        min-width: 10vw;
+        min-height: 1vh;
+
+        font-family: 'Itim';
+        font-size: 1.2em;
+        text-align: center;
+
+        padding-left: 1em;
+        padding-right: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+
+        border: none;
+        border-radius: 15px;
+        outline: none;
+    }
+}
+
+#decide-container {
+    @include flex;
+    flex-direction: column;
+
+    p {
+        font-size: 1.5em;
+        margin: 0.75em;
+    }
+
+    &-buttons {
+        @include flex;
+
+        > button {
+            background: #333;
+            color: #fff;
+
+            border: none;
+            border-radius: 10px;
+
+            font-family: 'Itim';
+            font-size: 1em;
+
+            padding: 1em;
+            margin-right: 1em;
+            margin-left: 1em;
+        }
+    } 
+}
+
+#roomid-container {
+    @include flex;
+    flex-direction: column;
+
+    label {
+        font-size: 1.5em;
+        margin: 0.75em;
+    }
+
+    input {
+        background: #333;
+        color: #fff;
+
+        min-width: 10vw;
+        min-height: 1vh;
+
+        font-family: 'Itim';
+        font-size: 1.2em;
+        text-align: center;
+
+        padding-left: 1em;
+        padding-right: 1em;
+        padding-top: 0.5em;
+        padding-bottom: 0.5em;
+
+        margin-bottom: 0.5em;
+
+        border: none;
+        border-radius: 15px;
+        outline: none;
+    }
+
+    button {
+        background: #333;
+        color: #fff;
+
+        border: none;
+        border-radius: 10px;
+
+        font-family: 'Itim';
+        font-size: 1em;
+
+        padding: 1em;
+        margin-right: 1em;
+        margin-left: 1em;
+    }
+}
+
+#decide-container, #roomid-container {
+    display: none;
 }
 
 .piano-container {

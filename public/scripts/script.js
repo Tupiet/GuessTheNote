@@ -1,12 +1,20 @@
+// Declarem el socket
 let socket = io()
+
+// Declarem els diferents elements i variables que utilitzarem
 
 let usernameElement = document.getElementById('username')
 let startRoom = document.getElementById('start-room')
 let joinRoom = document.getElementById('join-room')
 let roomIdElement = document.getElementById('room-id')
+let startGame = document.getElementById('start-game')
 
 let start = document.getElementById('start')
 let game = document.getElementById('game')
+
+let usernameContainer = document.getElementById('username-container')
+let decideContainer = document.getElementById('decide-container')
+let roomIdContainer = document.getElementById('roomid-container')
 
 let c = document.getElementById('c')
 let cs = document.getElementById('cs')
@@ -33,10 +41,11 @@ let usersList = document.getElementById('users')
 
 let octava = 4, points = 0
 
-let username
+let username, action
 
 let users = []
 
+// Creem el nostre piano
 const sampler = new Tone.Sampler({
 	urls: {
 		"C4": "C4.mp3",
@@ -48,6 +57,7 @@ const sampler = new Tone.Sampler({
 	baseUrl: "../extra/piano/",
 }).toDestination();
 
+// Aquesta funció ens tornarà un HTMLElement, amb el text i atributs desitjats
 let el = (tag, data) => {
     let e = document.createElement(tag)
     e.innerHTML = data.text
@@ -55,64 +65,42 @@ let el = (tag, data) => {
     return e
 }
 
+// Afegim els diferents eventListeners
+
+// Quan s'actualitzi el nom d'usuari, mostra els altres botons
+usernameElement.addEventListener('input', () => {
+    decideContainer.style.display = (usernameElement.value) ? 'flex' : 'none'
+})
+
+// Quan es premi el botó de començar la sala, l'acció és create, i mostra el div per posar l'id
 startRoom.addEventListener('click', (e) => {
-    let roomId = roomIdElement.value
-    username = usernameElement.value
-    console.log(username)
-    
-    console.log(roomId)
-    socket.emit('create room', roomId, username)
-
-    Tone.start()
+    action = 'create'
+    roomIdContainer.style.display = 'flex'
 })
 
+// Quan es premi el botó d'unir-se a la sala, l'acció és join, i mostra el div per posar l'id
 joinRoom.addEventListener('click', (e) => {
+    action = 'join'
+    roomIdContainer.style.display = 'flex'
+})
+
+// Quan es premi el botó per començar el joc, agafa l'id i comença o uneix-te a la sala
+startGame.addEventListener('click', (e) => {
     let roomId = roomIdElement.value
     username = usernameElement.value
-    console.log(username)
 
-    console.log(roomId)
-    socket.emit('join room', roomId, username)
+    socket.emit(`${action} room`, roomId, username)
 
-    Tone.start()
+    Tone.start() // Necessari per poder reproduir sonx
 })
 
+let notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
 
-c.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'C' + octava) 
-})
-cs.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'C#' + octava) 
-})
-d.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'D' + octava) 
-})
-ds.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'D#' + octava) 
-})
-e.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'E' + octava) 
-})
-f.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'F' + octava) 
-})
-fs.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'F#' + octava) 
-})
-g.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'G' + octava) 
-})
-gs.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'G#' + octava) 
-})
-a.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'A' + octava) 
-})
-as.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'A#' + octava) 
-})
-b.addEventListener('mousedown', (e) => {
-    socket.emit('note', 'B' + octava) 
+// EventListeners per a cada tecla
+Array(c, cs, d, ds, e, f, fs, g, gs, a, as, b).forEach((element, index) => {
+    element.addEventListener('mousedown', () => {
+        socket.emit('note', notes[index] + octava)
+    })
 })
 
 plus.addEventListener('click', (e) => {
