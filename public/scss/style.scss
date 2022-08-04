@@ -1,18 +1,13 @@
-@use 'piano';
+@use 'abstracts/mixins' as *;
 
-@use "../extra/fontawesome/scss/fontawesome.scss";
-@use "../extra/fontawesome/scss/solid.scss"; 
-@use "../extra/fontawesome/scss/brands.scss"; 
+@use 'base/typography';
 
-@font-face {
-    font-family: 'Pacifico';
-    src: url('webfonts/Pacifico-Regular.ttf')  format('truetype');
-}
+@use 'components/piano';
 
-@font-face {
-    font-family: 'Itim';
-    src: url('webfonts/Itim-Regular.ttf')  format('truetype');
-}
+@use "vendors/fontawesome/scss/fontawesome.scss";
+@use "vendors/fontawesome/scss/solid.scss"; 
+@use "vendors/fontawesome/scss/brands.scss"; 
+
 
 body {
     background:rgb(74, 74, 74);
@@ -21,6 +16,25 @@ body {
 
 #owner, #game {
     display: none;
+}
+
+#start {
+    width: 100vw;
+    height: 100vh;
+
+    @include flex
+}
+
+#start-container {
+    width: 60vw;
+    height: 60vh;
+    border: 1px solid #fff;
+}
+
+.piano-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #plus, #minus {
@@ -80,6 +94,7 @@ body {
 
         display: flex;
         justify-content: space-between;
+        align-items: center;
 
         &.you {
             background: rgb(34, 34, 34);
