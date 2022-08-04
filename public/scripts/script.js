@@ -70,6 +70,9 @@ let el = (tag, data) => {
 // Quan s'actualitzi el nom d'usuari, mostra els altres botons
 usernameElement.addEventListener('input', () => {
     decideContainer.style.display = (usernameElement.value) ? 'flex' : 'none'
+    if (roomIdContainer.style.display = 'flex' && !usernameElement.value) {
+        roomIdContainer.style.display = 'none'
+    }
 })
 
 // Quan es premi el botó de començar la sala, l'acció és create, i mostra el div per posar l'id
