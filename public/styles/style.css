@@ -298,6 +298,10 @@ body {
   border: 1px solid gold;
 }
 
+#owner {
+  display: none;
+}
+
 .fa-crown {
   color: gold;
 }

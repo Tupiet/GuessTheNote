@@ -98,9 +98,9 @@ joinRoom.addEventListener('click', (e) => {
     joinRoom.classList.add('active')
     if (startRoom.classList.contains('active')) {
         startRoom.classList.remove('active')
-        if (!randomButton.classList.contains('hidden')) {
-            randomButton.classList.add('hidden')
-        }
+    }
+    if (!randomButton.classList.contains('hidden')) {
+        randomButton.classList.add('hidden')
     }
 })
 

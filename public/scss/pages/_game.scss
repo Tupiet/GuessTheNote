@@ -20,7 +20,7 @@ body {
 
 #octava {
     color: $text-primary;
-    
+
     font-family: 'Pacifico', 'Lato', sans-serif;
     font-size: 1.7em;
 }
@@ -70,6 +70,8 @@ body {
         }
     }
 }
+
+#owner { display: none; }
 
 .fa-crown {
     color: gold;
