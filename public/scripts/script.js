@@ -8,6 +8,7 @@ let startRoom = document.getElementById('start-room')
 let joinRoom = document.getElementById('join-room')
 let roomIdElement = document.getElementById('room-id')
 let startGame = document.getElementById('start-game')
+let randomButton = document.getElementById('random')
 
 let start = document.getElementById('start')
 let game = document.getElementById('game')
@@ -119,6 +120,12 @@ minus.addEventListener('click', (e) => {
     }
 })
 
+randomButton.addEventListener('click', () => {
+    let randomWord = ''
+    for (let i = 0; i < 5; i++) randomWord += randomChar().toUpperCase()
+    roomIdElement.value = randomWord
+})
+
 socket.on('note', (note) => {
     //create a synth and connect it to the main output (your speakers)
     const synth = new Tone.Synth().toDestination();
@@ -198,3 +205,8 @@ socket.on('username already in use', () => {
 socket.on('user disconnected', (username) => {
     document.getElementById('user-' + username).remove()
 })
+
+function randomChar() {
+    const alphabet = "abcdefghijklmnopqrstuvwxyz1234567890"
+    return alphabet[Math.floor(Math.random() * alphabet.length)]
+}

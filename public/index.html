@@ -15,17 +15,17 @@
         <div id="start-container">
             <div id="username-container">
                 <label for="username">Your username: </label>
-                <input type="text" name="username" id="username">
+                <input type="text" name="username" id="username" class="input">
             </div>
 
             <div id="decide-container">
                 <p>What do you want to do?</p>
                 <div id="decide-container-buttons">
-                    <button id="start-room">
+                    <button id="start-room" class="button">
                         <i class="fa-solid fa-plus"></i>
                         &nbsp;Create room
                     </button>
-                    <button id="join-room">
+                    <button id="join-room" class="button">
                         <i class="fa-solid fa-door-open"></i> 
                         &nbsp;Join room
                     </button>
@@ -34,8 +34,13 @@
 
             <div id="roomid-container">
                 <label for="room-id">Code of the room: </label>
-                <input type="text" name="room-id" id="room-id">
-                <button id="start-game">
+                <div id="input-and-random" class="button">
+                    <input type="text" name="room-id" id="room-id" class="input">
+                    <button id="random" class="button button-secondary-circle">
+                        <i class="fa-solid fa-shuffle"></i>
+                    </button>
+                </div>
+                <button id="start-game" class="button">
                     <i class="fa-solid fa-play"></i> 
                     &nbsp;Play!
                 </button>
@@ -52,13 +57,13 @@
             <div class="space"></div>
             <div class="piano">
                 <div id="octava-div">
-                    <button id="minus">
+                    <button id="minus" class="button">
                         <i class="fa-solid fa-minus"></i>
                     </button>
                     
                     <span id="octava">4</span>
                     
-                    <button id="plus">
+                    <button id="plus" class="button">
                         <i class="fa fa-plus"></i>
                     </button>
                 </div>

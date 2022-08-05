@@ -1,0 +1,22 @@
+@use '../abstracts/variables' as *;
+
+.button {
+    background: #333;
+    color: #fff;
+
+    border: none;
+    outline: none;
+    border-radius: 10px;
+
+    font-family: 'Itim';
+    font-size: 1em;
+    box-shadow: $button-shadow;
+    
+}
+
+.button-secondary-circle {
+    background: #555;
+    border-radius: 50%;
+    padding: 0.5em;
+    box-shadow: $button-shadow;
+}

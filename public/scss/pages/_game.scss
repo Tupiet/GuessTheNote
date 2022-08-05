@@ -1,0 +1,76 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+body {
+    background: $bg-primary;
+    font-family: 'Itim', sans-serif;
+}
+
+.piano-container {
+    @include flex;
+}
+
+#plus, #minus {
+    padding: 0.5em;
+    margin: 0 1em 0 1em;
+
+    font-size: 1.2em;
+    border-radius: 20px;
+}
+
+#octava {
+    color: $text-primary;
+    
+    font-family: 'Pacifico', 'Lato', sans-serif;
+    font-size: 1.7em;
+}
+
+.space {
+    width: 100vh;
+    min-height: 30vh;
+
+    @include flex(flex-end, center);
+
+    margin-right: 3em;
+}
+
+#users {
+    margin: 0;
+    padding: 1em;
+
+    width: 15em;
+    height: 20em;
+
+    list-style: none;
+
+    background: $users-primary;
+    color: $text-primary;
+
+    border-radius: 10px;
+
+    box-shadow: $bg-shadow;
+
+    li {
+        background: $users-secondary;
+        color: $text-primary;
+
+        margin-bottom: 0.5em;
+        padding: 0.5em;
+
+        border-radius: 5px;
+
+        @include flex(space-between, center);
+
+        &.you {
+            background: $bg-you
+        }
+        
+        &.owner {
+            border: 1px solid gold;
+        }
+    }
+}
+
+.fa-crown {
+    color: gold;
+}

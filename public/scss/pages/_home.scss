@@ -1,0 +1,95 @@
+@use '../abstracts/mixins' as *;
+@use '../abstracts/variables' as *;
+
+body {
+    background: $bg-primary;
+    font-family: 'Itim', sans-serif;
+}
+
+#start {
+    width: 100vw;
+    height: 100vh;
+
+    @include flex
+}
+
+#start-container {
+    width: 60vw;
+    height: 60vh;
+    background: $bg-secondary;
+    border-radius: 15px;
+    box-shadow: $bg-shadow;
+
+    @include flex(flex-start, center);
+    flex-direction: column;
+
+    overflow: auto;
+
+    > div {
+        margin: 0.5em;
+    }
+
+    label, p {
+        color: $text-primary;
+    }
+}
+
+#username-container {
+    @include flex;
+    flex-direction: column;
+
+    label {
+        font-size: 1.5em;
+        margin: 0.75em;
+    }
+}
+
+#decide-container {
+    @include flex;
+    flex-direction: column;
+
+    p {
+        font-size: 1.5em;
+        margin: 0.75em;
+    }
+
+    &-buttons {
+        @include flex;
+
+        > button {
+            padding: 1em;
+            margin: 0 1em 0 1em;
+        }
+    } 
+}
+
+#roomid-container {
+    @include flex;
+    flex-direction: column;
+
+    label {
+        font-size: 1.5em;
+        margin: 0.75em;
+    }
+
+    #input-and-random {
+        @include flex;
+        width: fit-content;
+        height: fit-content;
+        padding: 0.5em 1em 0.5em 1em;
+        margin: 0 1em 0.5em 1em;
+
+        > input {
+            box-shadow: none;
+        }
+    }
+
+    #start-game {
+        padding: 1em;
+        margin: 0 1em 0 1em;
+    }
+}
+
+#decide-container, #roomid-container {
+    display: none;
+}

@@ -1,0 +1,24 @@
+@use '../abstracts/variables' as *;
+
+.input {
+    background: #333;
+    color: #fff;
+
+    min-width: 10vw;
+    min-height: 1vh;
+
+    font-family: 'Itim';
+    font-size: 1.2em;
+    text-align: center;
+
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+
+    border: none;
+    border-radius: 15px;
+    outline: none;
+
+    box-shadow: $input-shadow;
+}

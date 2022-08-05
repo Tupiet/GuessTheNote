@@ -6,6 +6,42 @@
   font-family: "Itim";
   src: url("webfonts/Itim-Regular.ttf") format("truetype");
 }
+.button {
+  background: #333;
+  color: #fff;
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  font-family: "Itim";
+  font-size: 1em;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.button-secondary-circle {
+  background: #555;
+  border-radius: 50%;
+  padding: 0.5em;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.input {
+  background: #333;
+  color: #fff;
+  min-width: 10vw;
+  min-height: 1vh;
+  font-family: "Itim";
+  font-size: 1.2em;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border: none;
+  border-radius: 15px;
+  outline: none;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 /* This is the piano's CSS */
 * {
   box-sizing: border-box;
@@ -17,9 +53,10 @@
   align-items: center;
   width: fit-content;
   margin: 0;
-  background: rgb(74, 74, 74);
+  background: #808080;
   padding: 2em;
   border-radius: 10px;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2), 0 2px 20px 10px rgba(0, 0, 0, 0.19);
 }
 
 .set {
@@ -83,6 +120,165 @@
 
 #a, #b, #d, #e, #g {
   margin: 0 0 0 -1em;
+}
+
+body {
+  background: #4a4a4a;
+  font-family: "Itim", sans-serif;
+}
+
+#start {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#start-container {
+  width: 60vw;
+  height: 60vh;
+  background: #808080;
+  border-radius: 15px;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2), 0 2px 20px 10px rgba(0, 0, 0, 0.19);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  overflow: auto;
+}
+#start-container > div {
+  margin: 0.5em;
+}
+#start-container label, #start-container p {
+  color: #fff;
+}
+
+#username-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#username-container label {
+  font-size: 1.5em;
+  margin: 0.75em;
+}
+
+#decide-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#decide-container p {
+  font-size: 1.5em;
+  margin: 0.75em;
+}
+#decide-container-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#decide-container-buttons > button {
+  padding: 1em;
+  margin: 0 1em 0 1em;
+}
+
+#roomid-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#roomid-container label {
+  font-size: 1.5em;
+  margin: 0.75em;
+}
+#roomid-container #input-and-random {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  height: fit-content;
+  padding: 0.5em 1em 0.5em 1em;
+  margin: 0 1em 0.5em 1em;
+}
+#roomid-container #input-and-random > input {
+  box-shadow: none;
+}
+#roomid-container #start-game {
+  padding: 1em;
+  margin: 0 1em 0 1em;
+}
+
+#decide-container, #roomid-container {
+  display: none;
+}
+
+body {
+  background: #4a4a4a;
+  font-family: "Itim", sans-serif;
+}
+
+.piano-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#plus, #minus {
+  padding: 0.5em;
+  margin: 0 1em 0 1em;
+  font-size: 1.2em;
+  border-radius: 20px;
+}
+
+#octava {
+  color: #fff;
+  font-family: "Pacifico", "Lato", sans-serif;
+  font-size: 1.7em;
+}
+
+.space {
+  width: 100vh;
+  min-height: 30vh;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 3em;
+}
+
+#users {
+  margin: 0;
+  padding: 1em;
+  width: 15em;
+  height: 20em;
+  list-style: none;
+  background: #333;
+  color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2), 0 2px 20px 10px rgba(0, 0, 0, 0.19);
+}
+#users li {
+  background: #555;
+  color: #fff;
+  margin-bottom: 0.5em;
+  padding: 0.5em;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#users li.you {
+  background: #222222;
+}
+#users li.owner {
+  border: 1px solid gold;
+}
+
+.fa-crown {
+  color: gold;
 }
 
 /*!
@@ -10199,198 +10395,6 @@ readers do not read off random characters that represent icons */
 
 .fa-zhihu:before {
   content: "\f63f";
-}
-
-body {
-  background: rgb(74, 74, 74);
-  font-family: "Itim", sans-serif;
-}
-
-#owner, #game {
-  display: none;
-}
-
-#start {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#start-container {
-  width: 60vw;
-  height: 60vh;
-  background: rgb(128, 128, 128);
-  border-radius: 15px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: column;
-  overflow: auto;
-}
-#start-container > div {
-  margin: 0.5em;
-}
-
-#username-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-#username-container label {
-  font-size: 1.5em;
-  margin: 0.75em;
-}
-#username-container input {
-  background: #333;
-  color: #fff;
-  min-width: 10vw;
-  min-height: 1vh;
-  font-family: "Itim";
-  font-size: 1.2em;
-  text-align: center;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  border: none;
-  border-radius: 15px;
-  outline: none;
-}
-
-#decide-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-#decide-container p {
-  font-size: 1.5em;
-  margin: 0.75em;
-}
-#decide-container-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-#decide-container-buttons > button {
-  background: #333;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-family: "Itim";
-  font-size: 1em;
-  padding: 1em;
-  margin-right: 1em;
-  margin-left: 1em;
-}
-
-#roomid-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-#roomid-container label {
-  font-size: 1.5em;
-  margin: 0.75em;
-}
-#roomid-container input {
-  background: #333;
-  color: #fff;
-  min-width: 10vw;
-  min-height: 1vh;
-  font-family: "Itim";
-  font-size: 1.2em;
-  text-align: center;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
-  margin-bottom: 0.5em;
-  border: none;
-  border-radius: 15px;
-  outline: none;
-}
-#roomid-container button {
-  background: #333;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  font-family: "Itim";
-  font-size: 1em;
-  padding: 1em;
-  margin-right: 1em;
-  margin-left: 1em;
-}
-
-#decide-container, #roomid-container {
-  display: none;
-}
-
-.piano-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-#plus, #minus {
-  padding: 0.5em;
-  margin-left: 1em;
-  margin-right: 1em;
-  border: 0;
-  border-radius: 20px;
-  outline: none;
-  background: rgb(121, 121, 121);
-  color: #fff;
-  font-size: 1.2em;
-}
-
-#octava {
-  color: #fff;
-  font-family: "Pacifico", "Lato", sans-serif;
-  font-size: 1.7em;
-}
-
-.space {
-  width: 100vh;
-  min-height: 30vh;
-  display: flex;
-  justify-content: flex-end;
-  margin-right: 3em;
-}
-
-#users {
-  margin: 0;
-  padding: 1em;
-  width: 15em;
-  height: 20em;
-  list-style: none;
-  background: #333;
-  color: #fff;
-  border-radius: 10px;
-}
-#users li {
-  background: #555;
-  color: #fff;
-  margin-bottom: 0.5em;
-  padding: 0.5em;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#users li.you {
-  background: rgb(34, 34, 34);
-}
-#users li.owner {
-  border: 1px solid gold;
-}
-
-.fa-crown {
-  color: gold;
 }
 
 /*# sourceMappingURL=style.css.map */
