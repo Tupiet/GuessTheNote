@@ -80,12 +80,28 @@ usernameElement.addEventListener('input', () => {
 startRoom.addEventListener('click', (e) => {
     action = 'create'
     roomIdContainer.style.display = 'flex'
+
+    startRoom.classList.add('active')
+    if (joinRoom.classList.contains('active')) {
+        joinRoom.classList.remove('active')
+        if (randomButton.classList.contains('hidden')) {
+            randomButton.classList.remove('hidden')
+        }
+    }
 })
 
 // Quan es premi el botó d'unir-se a la sala, l'acció és join, i mostra el div per posar l'id
 joinRoom.addEventListener('click', (e) => {
     action = 'join'
     roomIdContainer.style.display = 'flex'
+
+    joinRoom.classList.add('active')
+    if (startRoom.classList.contains('active')) {
+        startRoom.classList.remove('active')
+        if (!randomButton.classList.contains('hidden')) {
+            randomButton.classList.add('hidden')
+        }
+    }
 })
 
 // Quan es premi el botó per començar el joc, agafa l'id i comença o uneix-te a la sala

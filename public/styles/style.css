@@ -6,7 +6,7 @@
   font-family: "Itim";
   src: url("webfonts/Itim-Regular.ttf") format("truetype");
 }
-.button {
+.button, .button-secondary-circle {
   background: #333;
   color: #fff;
   border: none;
@@ -16,12 +16,30 @@
   font-size: 1em;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
 }
+.button:hover, .button-secondary-circle:hover {
+  cursor: pointer;
+  background: #555;
+  transition: background-color 1s ease;
+}
+.button:not(:hover), .button-secondary-circle:not(:hover) {
+  transition: background-color 1s ease;
+}
+.button.active, .active.button-secondary-circle {
+  background: #111;
+  transition: background-color 1s ease;
+}
+.button.active:not(:hover), .active.button-secondary-circle:not(:hover) {
+  transition: background-color 1s ease;
+}
 
 .button-secondary-circle {
   background: #555;
   border-radius: 50%;
   padding: 0.5em;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 0.85em;
+}
+.button-secondary-circle:hover {
+  background: #777;
 }
 
 .input {
@@ -32,10 +50,7 @@
   font-family: "Itim";
   font-size: 1.2em;
   text-align: center;
-  padding-left: 1em;
-  padding-right: 1em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding: 0.5em 1em 0.5em 1em;
   border: none;
   border-radius: 15px;
   outline: none;
@@ -205,6 +220,8 @@ body {
   margin: 0 1em 0.5em 1em;
 }
 #roomid-container #input-and-random > input {
+  padding: 0;
+  border: 0;
   box-shadow: none;
 }
 #roomid-container #start-game {
@@ -213,6 +230,10 @@ body {
 }
 
 #decide-container, #roomid-container {
+  display: none;
+}
+
+.hidden {
   display: none;
 }
 

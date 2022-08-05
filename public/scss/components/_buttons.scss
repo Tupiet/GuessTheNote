@@ -11,12 +11,37 @@
     font-family: 'Itim';
     font-size: 1em;
     box-shadow: $button-shadow;
+
+    &:hover {
+        cursor: pointer;
+        background: $button-secondary;
+        transition: background-color 1s ease;
+    }
+
+    &:not(:hover) {
+        transition: background-color 1s ease;
+    }
     
+    &.active {
+        background: $button-heavy;
+        transition: background-color 1s ease;
+
+        &:not(:hover) {
+            transition: background-color 1s ease;
+        }
+    }
 }
 
 .button-secondary-circle {
+    @extend .button;
+
     background: #555;
     border-radius: 50%;
     padding: 0.5em;
-    box-shadow: $button-shadow;
+
+    font-size: 0.85em;
+
+    &:hover {
+        background: $button-third;
+    }
 }

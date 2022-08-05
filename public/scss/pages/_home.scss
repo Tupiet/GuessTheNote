@@ -80,6 +80,8 @@ body {
         margin: 0 1em 0.5em 1em;
 
         > input {
+            padding: 0;
+            border: 0;
             box-shadow: none;
         }
     }
@@ -91,5 +93,9 @@ body {
 }
 
 #decide-container, #roomid-container {
+    display: none;
+}
+
+.hidden {
     display: none;
 }
