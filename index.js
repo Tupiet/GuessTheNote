@@ -128,7 +128,7 @@ io.on('connection', (socket) => {
                         'username': username,
                         'points': 0,
                         'socket': socket,
-                        'has_pressed_note': false
+                        'has_pressed_note': true
                     }
                 ]
             }
@@ -175,7 +175,7 @@ io.on('connection', (socket) => {
                     'username': username,
                     'points': 0,
                     'socket': socket,
-                    'has_pressed_note': false
+                    'has_pressed_note': true
                 })
     
                 // Digues que s'ha unit l'usuari a la sala
